@@ -1,0 +1,211 @@
+What is Docker?
+
+-> Docker is a platform designed to help developers build, share, and run containerized applications.
+
+Why do we need Docker?
+
+-> 1] Consistency Across Environments
+
+Problem: Applications often behave differently in development, testing, and production
+environments due to variations in configurations, dependencies, and infrastructure.
+Solution: Docker containers encapsulate all the necessary components, ensuring the
+application runs consistently across all environments.
+
+-> 2] Isolation
+
+Problem: Running multiple applications on the same host can lead to conflicts, such as
+dependency clashes or resource contention.
+Solution: Docker provides isolated environments for each application, preventing
+interference and ensuring stable performance.
+
+-> 3] Scalability
+
+Problem: Scaling applications to handle increased load can be challenging, requiring
+manual intervention and configuration.
+Solution: Docker makes it easy to scale applications horizontally by running multiple
+container instances, allowing for quick and efficient scaling.
+
+Setup
+
+Docker Desktop (Windows)
+Docker Hub (Website)
+
+Why use Docker?
+
+Eliminates "works on my machine" issues
+Lightweight compared to virtual machines
+Fast deployment
+Easy scalability
+Consistent environments
+
+Key Concepts
+
+Image:
+A blueprint/template used to create containers
+
+Container:
+A running instance of an image
+
+Dockerfile:
+A script that contains instructions to build an image
+
+Docker Hub:
+A cloud repository to store and share Docker images
+
+Install Docker
+
+Download Docker Desktop from:
+https://www.docker.com/products/docker-desktop
+
+Verify installation:
+docker --version
+
+Basic Commands
+
+Check Docker info:
+docker info
+
+Run test container:
+docker run hello-world
+
+List running containers:
+docker ps
+
+List all containers:
+docker ps -a
+
+Stop container:
+docker stop <container_id>
+
+Remove container:
+docker rm <container_id>
+
+Working with Images
+
+Pull image:
+docker pull node
+
+List images:
+docker images
+
+Remove image:
+docker rmi <image_id>
+
+Run Application in Container
+
+Example:
+docker run -d -p 3000:3000 node
+
+-d = run in background
+-p = map ports (local:container)
+
+Dockerfile Example
+
+Create a file named Dockerfile:
+
+FROM node:18
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "start"]
+
+Build Image
+
+docker build -t myapp .
+
+Run Image
+
+docker run -p 3000:3000 myapp
+
+Docker Volumes
+
+Create volume:
+docker volume create myvolume
+
+Use volume:
+docker run -v myvolume:/app/data myapp
+
+Docker Network
+
+Create network:
+docker network create mynetwork
+
+Run container in network:
+docker run --network=mynetwork myapp
+
+Docker Compose
+
+Create docker-compose.yml file:
+
+version: "3"
+services:
+app:
+build: .
+ports:
+- "3000:3000"
+mongo:
+image: mongo
+ports:
+- "27017:27017"
+
+Run:
+docker-compose up
+
+Stop:
+docker-compose down
+
+Useful Commands
+
+View logs:
+docker logs <container_id>
+
+Access container terminal:
+docker exec -it <container_id> bash
+
+Inspect container:
+docker inspect <container_id>
+
+Best Practices
+
+Use small base images (like alpine)
+Use .dockerignore file
+Keep Dockerfile simple
+Use environment variables
+
+.dockerignore Example
+
+node_modules
+.env
+.git
+
+Environment Variables
+
+docker run -e PORT=5000 myapp
+
+Push Image to Docker Hub
+
+docker login
+docker tag myapp username/myapp
+docker push username/myapp
+
+Basic Workflow
+
+Create app
+Write Dockerfile
+Build image
+Run container
+Use docker-compose for multiple services
+
+Common Interview Questions
+
+Difference between image and container
+Docker vs Virtual Machine
+What is Dockerfile
+What is Docker Compose
+What is volume in Docker
